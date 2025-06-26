@@ -1,0 +1,88 @@
+now i want to take save input from the modal popup form and save it into local storage for the day for which the form is submitted and also i want to make that cell look a bit different to show that an event is saved for that cell. Dont give me the code just a detailed step by step instructions. I want to code by myself
+Perfect — I’ll give you a clear **step-by-step plan** so you can build it yourself without code handed to you. Let’s break it down:
+
+---
+
+## ✅ Step-by-Step Instructions
+
+---
+
+### 🔹 **1. Capture Form Submission**
+
+* Add a `submit` event listener to your form (`#eventForm`).
+* Inside that listener:
+
+  * Prevent default form behavior.
+  * Get values from all the form fields (`title`, `date`, `time`, `description`).
+
+---
+
+### 🔹 **2. Structure the Event Data**
+
+* Create an object to represent the event (e.g., `{ title, time, description }`).
+* Use the selected date (`YYYY-MM-DD` format) as the **key**.
+
+---
+
+### 🔹 **3. Save to Local Storage**
+
+* Retrieve existing events from `localStorage` (parse JSON or fallback to `{}`).
+* Add your new event under the appropriate date key.
+
+  * If multiple events per day: use an array.
+* Save the updated object back to `localStorage`.
+
+---
+
+### 🔹 **4. Close the Modal**
+
+* After saving, hide the modal (`classList.add("hidden")`).
+* Optionally reset the form.
+
+---
+
+### 🔹 **5. Modify Calendar Rendering to Show Saved Events**
+
+* In your `render` function (for both `monthView` and `weekView`):
+
+  * Retrieve events from `localStorage`.
+  * For each day cell you render:
+
+    * Convert its date to `YYYY-MM-DD` format.
+    * Check if that date exists in the saved events.
+    * If it does, **add a class or visual indicator** (like a dot or background color).
+
+---
+
+### 🔹 **6. Style Cells With Events**
+
+* Decide on a visual cue:
+
+  * A subtle colored dot.
+  * A border.
+  * A background like `bg-yellow-100`.
+* Apply the style conditionally during rendering when events are found.
+
+---
+
+### 🔹 **7. Optional: Show a Tooltip or Summary on Hover**
+
+* You can show the event title on hover using `title` attribute or a custom tooltip if you want extra polish.
+
+---
+
+## 🧠 Tip
+
+Keep your event storage simple at first, like:
+
+```json
+{
+  "2025-06-27": [{ "title": "Meeting", "time": "14:00", "description": "Discuss roadmap" }]
+}
+```
+
+Then build on that as needed (editing/deleting, etc.).
+
+---
+
+Let me know once you try it — I’m happy to help debug or refine your implementation!

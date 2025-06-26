@@ -167,5 +167,3 @@ document.getElementById("weekView").addEventListener("click", () => {
   currentView = "weekView"
   render(currentView);
 });
-
-// chatgpt prompt: now i want to take save input from the modal popup form and save it into local storage for the day for which the form is submitted and also i want to make that cell look a bit different to show that an event is saved for that cell. Dont give me the code just a detailed step by step instructions. I want to code by myself
