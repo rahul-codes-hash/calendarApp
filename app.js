@@ -10,6 +10,11 @@ import {
 } from "https://cdn.skypack.dev/date-fns";
 
 const monthYear = document.getElementById('monthYear');
+const eventModal = document.getElementById('eventModal');
+const eventDateInput = document.getElementById("eventDate");
+const cancelModalBtn = document.getElementById("cancelModal");
+const modalTitle = document.getElementById("modalTitle");
+
 
 const activeDate = new Date();
 let currentView = "monthView"
@@ -23,6 +28,21 @@ const startDayOfMonth = (today) => {
 const endDayOfMonth = (today) => {
   return endOfMonth(today);
 };
+
+const openEventModal = () => {
+  eventModal.classList.remove('hidden');
+
+  modalTitle.textContent = "Add Event";
+  document.getElementById('eventForm').reset();
+
+  const isoDate = date.toISOString().split("T")[0];
+  eventDateInput.value = isoDate;
+
+}
+
+cancelModalBtn.addEventListener('click', () => {
+  eventModal.classList.add('hidden');
+})
 
 const render = (view) => {
   const calendarGrid = document.getElementById("calendarGrid");
@@ -58,8 +78,12 @@ const render = (view) => {
 
       // Set cell content and classes
       cell.textContent = day;
+      cell.addEventListener('click', () => {
+        openEventModal(currentDate);
+      });
+
       cell.className =
-        "h-12 w-12 flex items-center justify-center rounded border " +
+        "h-12 w-12 flex items-center justify-center rounded border cursor-pointer hover:bg-green-200 " +
         (isToday ? "bg-blue-500 text-white font-bold " : "bg-gray-50 ") +
         (isWeekend ? "text-red-500" : "text-gray-800");
 
@@ -93,7 +117,10 @@ const render = (view) => {
       const isWeekend = currentDate.getDay() == 0 || currentDate.getDay() == 6;
 
       weekDiv.textContent = date;
-      weekDiv.className = `h-12 w-12 flex items-center justify-center rounded border 
+      weekDiv.addEventListener('click', () => {
+        openEventModal(currentDate);
+      });
+      weekDiv.className = `h-12 w-12 flex items-center justify-center rounded border cursor-pointer hover:bg-green-200
               ${isToday ? "bg-blue-500 text-white font-bold" : "bg-gray-50"}
               ${isWeekend ? "text-red-500" : "text-gray-800"}`;
 
@@ -140,3 +167,5 @@ document.getElementById("weekView").addEventListener("click", () => {
   currentView = "weekView"
   render(currentView);
 });
+
+// chatgpt prompt: now i want to take save input from the modal popup form and save it into local storage for the day for which the form is submitted and also i want to make that cell look a bit different to show that an event is saved for that cell. Dont give me the code just a detailed step by step instructions. I want to code by myself
